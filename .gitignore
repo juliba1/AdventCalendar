@@ -1,0 +1,45 @@
+# Flutter/Dart
+# Build-Ordner
+/build/
+# Flutter-Dokumentation
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+# Ausgabedateien von Dart
+*.dart_tool/
+# IDE-spezifische Dateien
+.idea/
+*.iml
+*.hprof
+*.log
+*.pyc
+
+# macOS-spezifische Dateien
+.DS_Store
+
+# Android-spezifische Dateien
+*.apk
+*.ap_
+*.dex
+*.class
+*.jar
+*.keystore
+*.jks
+
+# iOS-spezifische Dateien
+Pods/
+Flutter/Flutter.framework
+Flutter/Flutter.podspec
+# Xcode
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+
+# Versuchs-/Testdaten
+test_driver/
+
+# Sonstige temporäre Dateien
+*.tmp
+*.temp

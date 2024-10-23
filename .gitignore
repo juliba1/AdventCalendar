@@ -43,3 +43,9 @@ test_driver/
 # Sonstige temporäre Dateien
 *.tmp
 *.temp
+
+# Ausschließen des assets-Verzeichnisses
+assets/
+
+# Ausschließen des lib/input-Verzeichnisses
+lib/input/

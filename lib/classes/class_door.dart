@@ -40,7 +40,7 @@ class AdventCalendarDoor {
   void setDoorValidation(){
     DateTime doorDate = DateTime(year, 12, day);
 
-    if (!doorDate.isBefore(DateTime.now())) { // Türchen öffnen
+    if (doorDate.isBefore(DateTime.now())) { // Türchen öffnen
       validToOpen = true;
     } // else nicht valid
   }

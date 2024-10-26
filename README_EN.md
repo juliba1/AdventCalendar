@@ -12,10 +12,4 @@ This app allows users to count down the days until Christmas in an entertaining 
 - **User-Friendly Interface**: Easy navigation through the doors of the advent calendar.
 - **Responsive Design**: Optimized for various screen sizes and resolutions.
 
-## Requirements
-
-To run the Advent Calendar App, you need:
-
-- Flutter SDK (Version 2.0 or higher)
-- Dart SDK (Version 2.12 or higher)
-- An emulator or a physical device to test the app
+**Side Note:** This project only serves as an example, it is not executable as some personal data is missing.

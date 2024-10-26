@@ -12,10 +12,4 @@ Diese App ermöglicht es Benutzern, die Tage bis zum Weihnachtsfest auf unterhal
 - **Benutzerfreundliche Oberfläche**: Einfache Navigation durch die Türchen des Adventskalenders.
 - **Responsive Design**: Optimiert für verschiedene Bildschirmgrößen und -auflösungen.
 
-## Voraussetzungen
-
-Um die Adventskalender-App auszuführen, benötigst du:
-
-- Flutter SDK (Version 2.0 oder höher)
-- Dart SDK (Version 2.12 oder höher)
-- Ein Emulator oder ein physisches Gerät zum Testen der App
+**Notiz:** Dieses Projekt dient nur als Beispiel, es ist nicht lauffähig da einige personenbezogene Daten fehlen.

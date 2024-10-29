@@ -15,6 +15,7 @@ class AdventCalendar {
   Color secundaryColor = Colors.white;
   List<AdventCalendarDoor> doors = [];
   String backgroundImage = "";
+  String waitingPicture = "";
 
   AdventCalendar({required this.year}) {
     switch (year){
@@ -65,6 +66,7 @@ class AdventCalendar {
     primaryColor = calendar.primaryColor;
     secundaryColor = calendar.secundaryColor;
     backgroundImage = calendar.backgroundImage;
+    waitingPicture = calendar.waitingPicture;
 
     setDoors(calendar);
   }

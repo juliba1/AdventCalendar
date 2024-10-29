@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../classes/class_door.dart';
 
 /* Screen für zu früh geöffnetes Türchen */
-
 class AdventCalendarEarlyDoorScreen extends StatelessWidget {
   final AdventCalendarDoor door;
 
@@ -34,41 +33,100 @@ class AdventCalendarEarlyDoorScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Bildbox mit dynamischer Größe basierend auf der Bildschirmgröße
-              Container(
-                width: screenWidth, // 80% der Bildschirmbreite
-                height: screenHeight * 0.5, // 30% der Bildschirmhöhe
-                padding: const EdgeInsets.all(15), // 20 Pixel Padding
-                child: Center(
-                  child: Image.asset(
-                    door.earlyPicture, // Bildpfad
-                    fit: BoxFit.contain, // Das Bild wird nicht gestreckt, sondern passt sich an
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FullScreenImage(imagePath: door.earlyPicture, backColor: door.primaryColor),
+                    ),
+                  );
+                },
+                // Bildbox mit dynamischer Größe basierend auf der Bildschirmgröße
+                child: Container(
+                  width: screenWidth, // 80% der Bildschirmbreite
+                  height: screenHeight * 0.6, // 30% der Bildschirmhöhe
+                  padding: const EdgeInsets.all(10), // Padding um das Bild
+                  child: Center(
+                    child: Image.asset(
+                      door.earlyPicture, // Bildpfad
+                      fit: BoxFit.contain, // Das Bild wird nicht gestreckt, sondern passt sich an
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 0), // Abstand zwischen Bild und Header
               // Fetter Header unter dem Bild
-              Text(
-                door.earlyHeader,
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: door.secundaryColor,
-                    backgroundColor: door.primaryColor
+              Padding(
+                padding: const EdgeInsets.all(0), // Padding um den Header
+                child: Container(
+                  padding: const EdgeInsets.all(10.0), // Padding innerhalb des Containers
+                  decoration: BoxDecoration(
+                    color: door.primaryColor, // Hintergrundfarbe mit Opazität
+                    borderRadius: BorderRadius.circular(10), // Abgerundete Ecken
+                  ),
+                  child: Text(
+                    door.earlyHeader,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: door.secundaryColor,
+                    ),
+                    textAlign: TextAlign.center, // Text zentrieren
+                  ),
                 ),
-                textAlign: TextAlign.center, // Text zentrieren
               ),
-              const SizedBox(height: 10), // Abstand zwischen Header und Textfeld
+              const SizedBox(height: 0), // Abstand zwischen Header und Textfeld
               // Mehrzeiliges Textfeld
-              Text(
-                door.earlyText,
-                style: TextStyle(
-                    fontSize: 17,
-                    color: door.secundaryColor,
-                    backgroundColor: door.primaryColor
+              Padding(
+                padding: const EdgeInsets.all(5), // Padding um das Textfeld
+                child: Container(
+                  padding: const EdgeInsets.all(5.0), // Padding innerhalb des Containers
+                  decoration: BoxDecoration(
+                    color: door.primaryColor, // Hintergrundfarbe mit Opazität
+                    borderRadius: BorderRadius.circular(10), // Abgerundete Ecken
+                  ),
+                  child: Text(
+                    door.earlyText,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: door.secundaryColor,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                textAlign: TextAlign.center,
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FullScreenImage extends StatelessWidget {
+  final String imagePath;
+  final Color backColor;
+
+  const FullScreenImage({super.key, required this.imagePath, required this.backColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: backColor,
+      body: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Center(
+          child: InteractiveViewer(
+            panEnabled: true, // Enable panning
+            minScale: 0.5, // Minimum zoom scale
+            maxScale: 4.0, // Maximum zoom scale
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),

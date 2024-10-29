@@ -1,11 +1,13 @@
 import 'package:adventskalender/screens/screen_calendar.dart';
 import 'package:flutter/material.dart';
 
+import '../input/calendar.dart';
+
 class Settings extends StatelessWidget {
   // Liste mit den Jahren (Adventskalender)
-  final List<int> calendarYears = [2022, 2023, 2024]; // Füge hier weitere Jahre hinzu
+  final List<int> calendarYears = Calendar.getCalenderYears();
 
-  Settings({Key? key}) : super(key: key);
+  Settings({super.key});
 
   @override
   Widget build(BuildContext context) {

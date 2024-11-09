@@ -13,9 +13,9 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Übersicht'),
+        title: const Text('Alle deine Kalender'),
         centerTitle: true,
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.lightBlue[100],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -28,24 +28,25 @@ class Settings extends StatelessWidget {
           itemCount: calendarYears.length, // Anzahl der Buttons basierend auf der Liste
           itemBuilder: (context, index) {
             final year = calendarYears[index]; // Das Jahr für diesen Button
+            final calendar = AdventCalendarScreen(year: year);
             return ElevatedButton(
               onPressed: () {
                 // OnClick-Funktion für den Button
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => AdventCalendarScreen(year: year))
+                        builder: (_) => calendar)
                 );
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12), // Abgerundete Ecken
                 ),
-                backgroundColor: Colors.lightBlueAccent, // Button-Farbe
+                backgroundColor: calendar.calendar.primaryColor, // Button-Farbe
               ),
               child: Text(
                 '$year', // Dynamischer Text für das Jahr
-                style: const TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18, color: calendar.calendar.secundaryColor), // Text-Stil
               ),
             );
           },

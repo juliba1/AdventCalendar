@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
         home: DateTime.now().isBefore(DateTime(DateTime.now().year, 11, 15)) // Vor dem 15.11. des aktuellen Jahres wird der Adventskalender des Vorjahres angezeigt
             ? AdventCalendarScreen(year: DateTime.now().year - 1) // Zeige den Adventskalender des Vorjahres
-            : DateTime.now().isAfter(DateTime(DateTime.now().year, 11, 30)) // Nach dem 30.11. des aktuellen Jahres wird der Adventskalender des aktuellen Jahres angezeigt
+            : DateTime.now().isAfter(DateTime(DateTime.now().year, 12, 01)) // Nach dem 30.11. des aktuellen Jahres wird der Adventskalender des aktuellen Jahres angezeigt
             ? AdventCalendarScreen(year: DateTime.now().year) // Zeige den Adventskalender des aktuellen Jahres
             : WaitingScreen(year: DateTime.now().year) // Zeige den Wartebildschirm
     );

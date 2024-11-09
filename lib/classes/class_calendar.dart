@@ -16,6 +16,8 @@ class AdventCalendar {
   List<AdventCalendarDoor> doors = [];
   String backgroundImage = "";
   String waitingPicture = "";
+  String thankYouPicture = "";
+  String thankYouText = "";
 
   AdventCalendar({required this.year}) {
     switch (year){
@@ -45,6 +47,9 @@ class AdventCalendar {
     secundaryColor = calendar.secundaryColor;
     backgroundImage = calendar.backgroundImage;
 
+    thankYouPicture = calendar.thankYouPicture;
+    thankYouText = calendar.thankYouText;
+
     setDoors(calendar);
   }
 
@@ -56,6 +61,9 @@ class AdventCalendar {
     secundaryColor = calendar.secundaryColor;
     backgroundImage = calendar.backgroundImage;
 
+    thankYouPicture = calendar.thankYouPicture;
+    thankYouText = calendar.thankYouText;
+
     setDoors(calendar);
   }
 
@@ -66,7 +74,11 @@ class AdventCalendar {
     primaryColor = calendar.primaryColor;
     secundaryColor = calendar.secundaryColor;
     backgroundImage = calendar.backgroundImage;
+
+    //TODO: Add the missing properties
     waitingPicture = calendar.waitingPicture;
+    thankYouPicture = calendar.thankYouPicture;
+    thankYouText = calendar.thankYouText;
 
     setDoors(calendar);
   }

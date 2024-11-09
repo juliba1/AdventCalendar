@@ -12,7 +12,23 @@ class AdventCalendarScreen extends StatelessWidget {
 
   AdventCalendarScreen({super.key, required this.year}) { // Der Adventskalender mit den 24 Türchen
     calendar = AdventCalendar(year: year);
-  } 
+  }
+
+  BoxDecoration _buildBoxDecoration(bool validToOpen, Color primaryColor, Color secundaryColor) {
+    return BoxDecoration(
+      color: validToOpen ? secundaryColor : primaryColor,
+      border: validToOpen ? Border.all(color: primaryColor) : Border.all(color: secundaryColor),
+      borderRadius: BorderRadius.circular(15),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 2,
+          blurRadius: 5,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +46,9 @@ class AdventCalendarScreen extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => Settings())
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => Settings())
               );
             },
           )
@@ -41,23 +57,52 @@ class AdventCalendarScreen extends StatelessWidget {
       body: Container(
         // Setze das Hintergrundbild
         decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(calendar.backgroundImage), // Pfad zu deinem Bild
-          fit: BoxFit.cover, // Bild skaliert auf die Bildschirmgröße
+          image: DecorationImage(
+            image: AssetImage(calendar.backgroundImage), // Pfad zu deinem Bild
+            fit: BoxFit.cover, // Bild skaliert auf die Bildschirmgröße
+          ),
         ),
-        ), child: Padding(
+        child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4, // 4 Spalten für 24 Türchen
-              crossAxisSpacing: 10.0, // Türchen links rechts
-              mainAxisSpacing: 10.0, // Türchen oben unten
-            ),
-            itemCount: 24,
-            itemBuilder: (context, index) {
-              final door = calendar.getDoors()[index]; // Türchen aus dem Kalender
-              return AdventDoorWidget(door: door); // Türchen-Widget
-            },
+          child: Column(
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4, // 4 Spalten für 24 Türchen
+                    crossAxisSpacing: 10.0, // Türchen links rechts
+                    mainAxisSpacing: 10.0, // Türchen oben unten
+                  ),
+                  itemCount: 24,
+                  itemBuilder: (context, index) {
+                    final door = calendar.getDoors()[index]; // Türchen aus dem Kalender
+                    return AdventDoorWidget(door: door, buildBoxDecoration: _buildBoxDecoration,); // Türchen-Widget
+                  },
+                ),
+              ),
+              if (DateTime.now().isAfter(DateTime(year, 12, 24))) // Wenn der 24. Dezember vorbei ist
+                SizedBox(
+                  width: double.infinity,
+                  child: Container(
+                    decoration: _buildBoxDecoration(true, calendar.primaryColor, calendar.secundaryColor),
+                    child: SizedBox(
+                      height: 60,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          final door = calendar.getDoors()[0];
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => AdventCalendarEarlyDoorScreen(door: door),
+                            ),
+                          );
+                        },
+                        child: Text('Bonus Türchen', style: TextStyle(fontSize: 20, color: calendar.primaryColor)),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
       ),
@@ -67,8 +112,9 @@ class AdventCalendarScreen extends StatelessWidget {
 
 class AdventDoorWidget extends StatefulWidget {
   final AdventCalendarDoor door;
+  final BoxDecoration Function(bool, Color, Color) buildBoxDecoration;
 
-  const AdventDoorWidget({super.key, required this.door});
+  const AdventDoorWidget({super.key, required this.door, required this.buildBoxDecoration});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -100,19 +146,7 @@ class _AdventDoorWidgetState extends State<AdventDoorWidget> {
         }
       },
       child: Container(
-        decoration: BoxDecoration(
-          color: widget.door.validToOpen ? widget.door.secundaryColor : widget.door.primaryColor, // Geöffnete Türchen sind weiß
-          border: widget.door.validToOpen ? Border.all(color: widget.door.primaryColor) : Border.all(color: widget.door.secundaryColor), // Rahmen um die Türchen
-          borderRadius: BorderRadius.circular(15), // Abgerundete Ecken
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3), // Schattenwurf
-            ),
-          ],
-        ),
+        decoration: widget.buildBoxDecoration(widget.door.validToOpen, widget.door.primaryColor, widget.door.secundaryColor),
         child: Center(
           child: Text(
             '${widget.door.day}',

@@ -1,0 +1,7 @@
+flutter build apk --release
+
+Dies erstellt eine APK-Datei im Verzeichnis build/app/outputs/flutter-apk/
+
+Die APK-Datei kann dann auf einem Android-Gerät installiert werden.
+Schicke die APK-Datei über WA und öffne diese.
+    -> Die App wird installiert und kann genutzt werden.
